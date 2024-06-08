@@ -13,7 +13,8 @@ import os
 import argparse
 import json
 import re
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import dnnlib
 import dnnlib.tflib as tflib
 
@@ -138,10 +139,6 @@ def setup_training_options(
     assert all(isinstance(metric, str) for metric in metrics)
 
     args.metric_arg_list = []
-    for metric in metrics:
-        if metric not in metric_defaults.metric_defaults:
-            raise UserError('\n'.join(['--metrics can only contain the following values:', 'none'] + list(metric_defaults.metric_defaults.keys())))
-        args.metric_arg_list.append(metric_defaults.metric_defaults[metric])
 
     args.metric_dataset_args = dnnlib.EasyDict(args.train_dataset_args)
     if metricdata is not None:

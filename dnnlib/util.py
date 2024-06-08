@@ -222,7 +222,7 @@ def get_module_from_obj_name(obj_name: str) -> Tuple[types.ModuleType, str]:
 
     # allow convenience shorthands, substitute them by full names
     obj_name = re.sub("^np.", "numpy.", obj_name)
-    obj_name = re.sub("^tf.", "tensorflow.", obj_name)
+    obj_name = re.sub("^tf.", "tensorflow.compat.v1.", obj_name)
 
     # list alternatives for (module_name, local_obj_name)
     parts = obj_name.split(".")

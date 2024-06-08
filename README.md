@@ -10,6 +10,8 @@ Abstract: *Training generative adversarial networks (GAN) using too little data 
 
 For business inquiries, please visit our website and submit the form: [NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/)
 
+**This repo is modified to be compatible with tensorflow 2.x**
+
 ## Looking for the PyTorch version?
 
 The [Official PyTorch version](https://github.com/NVlabs/stylegan2-ada-pytorch) is now available and supersedes the TensorFlow version. See the full list of versions [here](https://nvlabs.github.io/stylegan2/versions.html).

@@ -1,0 +1,10 @@
+tensorflow-gpu
+scipy
+requests
+Pillow
+h5py
+imageio
+imageio-ffmpeg
+tqdm
+opencv-python
+tensorflow_addons

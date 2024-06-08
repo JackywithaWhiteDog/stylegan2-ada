@@ -13,7 +13,8 @@ import pickle
 import time
 import PIL.Image
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import dnnlib
 import dnnlib.tflib as tflib
 from dnnlib.tflib.autosummary import autosummary
@@ -203,8 +204,6 @@ def training_loop(
     Gs_beta_in = tf.placeholder(tf.float32, name='Gs_beta_in', shape=[])
     Gs_update_op = Gs.setup_as_moving_average_of(G, beta=Gs_beta_in)
     tflib.init_uninitialized_vars()
-    with tf.device('/gpu:0'):
-        peak_gpu_mem_op = tf.contrib.memory_stats.MaxBytesInUse()
 
     print('Initializing metrics...')
     summary_log = tf.summary.FileWriter(run_dir)
@@ -290,7 +289,6 @@ def training_loop(
                 f"sec/tick {autosummary('Timing/sec_per_tick', tick_time):<7.1f}",
                 f"sec/kimg {autosummary('Timing/sec_per_kimg', tick_time / tick_kimg):<7.2f}",
                 f"maintenance {autosummary('Timing/maintenance_sec', maintenance_time):<6.1f}",
-                f"gpumem {autosummary('Resources/peak_gpu_mem_gb', peak_gpu_mem_op.eval() / 2**30):<5.1f}",
                 f"augment {autosummary('Progress/augment', aug.strength if aug is not None else 0):.3f}",
             ]))
             autosummary('Timing/total_hours', total_time / (60.0 * 60.0))
